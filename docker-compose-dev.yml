@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  
+  database-sql-server-blazor-ecommerce:
+    container_name: database-sql-server-blazor-ecommerce
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+    env_file:
+      - secret.env
+  
+  database-psql-blazor-ecommerce:
+    container_name: database-psql-blazor-ecommerce
+    image: postgres:14.2
+    ports:
+      - "5432:5432"
+    env_file:
+      - secret.env
+    environment:
+      POSTGRES_PASSWORD: password
