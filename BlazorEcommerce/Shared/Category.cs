@@ -13,4 +13,16 @@ public class Category
     public bool Editing { get; set; } = false;
     [NotMapped]
     public bool IsNew { get; set; } = false;
+
+    
+
+    public Category Update(string name, bool visible, bool deleted, bool editing, bool isNew)
+    {
+        Name = name;
+        Visible = visible;
+        Deleted = deleted;
+        Editing = editing;
+        IsNew = isNew;
+        return this;
+    }
 }

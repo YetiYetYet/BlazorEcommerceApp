@@ -64,7 +64,7 @@ public class CategoryService : ICategoryService
 
     public async Task<ServiceResponse<List<Category>>> UpdateCategory(Category category)
     {
-        var dbCategory = await GetCategoryById(category.Id);
+        Category dbCategory = await GetCategoryById(category.Id);
         if (dbCategory == null)
         {
             return new ServiceResponse<List<Category>>
@@ -73,7 +73,7 @@ public class CategoryService : ICategoryService
                 Message = "Category not found."
             };
         }
-
+        
         dbCategory.Name = category.Name;
         dbCategory.Url = category.Url;
         dbCategory.Visible = category.Visible;
