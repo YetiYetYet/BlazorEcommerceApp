@@ -17,6 +17,7 @@ namespace BlazorEcommerce.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("blazor_ecommerce")
                 .HasAnnotation("ProductVersion", "7.0.0-preview.1.22076.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -77,7 +78,7 @@ namespace BlazorEcommerce.Server.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_addresses_user_id");
 
-                    b.ToTable("addresses", (string)null);
+                    b.ToTable("addresses", "blazor_ecommerce");
                 });
 
             modelBuilder.Entity("BlazorEcommerce.Shared.CartItem", b =>
@@ -101,7 +102,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasKey("UserId", "ProductId", "ProductTypeId")
                         .HasName("pk_cart_items");
 
-                    b.ToTable("cart_items", (string)null);
+                    b.ToTable("cart_items", "blazor_ecommerce");
                 });
 
             modelBuilder.Entity("BlazorEcommerce.Shared.Category", b =>
@@ -134,7 +135,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasKey("Id")
                         .HasName("pk_categories");
 
-                    b.ToTable("categories", (string)null);
+                    b.ToTable("categories", "blazor_ecommerce");
 
                     b.HasData(
                         new
@@ -187,7 +188,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasKey("Id")
                         .HasName("pk_orders");
 
-                    b.ToTable("orders", (string)null);
+                    b.ToTable("orders", "blazor_ecommerce");
                 });
 
             modelBuilder.Entity("BlazorEcommerce.Shared.OrderItem", b =>
@@ -221,7 +222,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasIndex("ProductTypeId")
                         .HasDatabaseName("ix_order_items_product_type_id");
 
-                    b.ToTable("order_items", (string)null);
+                    b.ToTable("order_items", "blazor_ecommerce");
                 });
 
             modelBuilder.Entity("BlazorEcommerce.Shared.Product", b =>
@@ -270,7 +271,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasIndex("CategoryId")
                         .HasDatabaseName("ix_products_category_id");
 
-                    b.ToTable("products", (string)null);
+                    b.ToTable("products", "blazor_ecommerce");
 
                     b.HasData(
                         new
@@ -413,7 +414,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasKey("Id")
                         .HasName("pk_product_types");
 
-                    b.ToTable("product_types", (string)null);
+                    b.ToTable("product_types", "blazor_ecommerce");
 
                     b.HasData(
                         new
@@ -500,7 +501,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasIndex("ProductTypeId")
                         .HasDatabaseName("ix_product_variants_product_type_id");
 
-                    b.ToTable("product_variants", (string)null);
+                    b.ToTable("product_variants", "blazor_ecommerce");
 
                     b.HasData(
                         new
@@ -689,7 +690,7 @@ namespace BlazorEcommerce.Server.Migrations
                     b.HasKey("Id")
                         .HasName("pk_users");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users", "blazor_ecommerce");
                 });
 
             modelBuilder.Entity("BlazorEcommerce.Shared.Address", b =>

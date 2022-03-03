@@ -9,8 +9,12 @@ namespace BlazorEcommerce.Server.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "blazor_ecommerce");
+
             migrationBuilder.CreateTable(
                 name: "cart_items",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     user_id = table.Column<int>(type: "int", nullable: false),
@@ -25,6 +29,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "categories",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -41,6 +46,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "orders",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -56,6 +62,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "product_types",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -69,13 +76,13 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password_hash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    password_salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date_created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -86,6 +93,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "products",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -104,6 +112,7 @@ namespace BlazorEcommerce.Server.Migrations
                     table.ForeignKey(
                         name: "fk_products_categories_category_id",
                         column: x => x.category_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "categories",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -111,6 +120,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "addresses",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -130,6 +140,7 @@ namespace BlazorEcommerce.Server.Migrations
                     table.ForeignKey(
                         name: "fk_addresses_users_user_id",
                         column: x => x.user_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -137,6 +148,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "order_items",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     order_id = table.Column<int>(type: "int", nullable: false),
@@ -151,18 +163,21 @@ namespace BlazorEcommerce.Server.Migrations
                     table.ForeignKey(
                         name: "fk_order_items_orders_order_id",
                         column: x => x.order_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "orders",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_order_items_product_types_product_type_id",
                         column: x => x.product_type_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "product_types",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_order_items_products_product_id",
                         column: x => x.product_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -170,6 +185,7 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "product_variants",
+                schema: "blazor_ecommerce",
                 columns: table => new
                 {
                     product_id = table.Column<int>(type: "int", nullable: false),
@@ -185,18 +201,21 @@ namespace BlazorEcommerce.Server.Migrations
                     table.ForeignKey(
                         name: "fk_product_variants_product_types_product_type_id",
                         column: x => x.product_type_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "product_types",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_product_variants_products_product_id",
                         column: x => x.product_id,
+                        principalSchema: "blazor_ecommerce",
                         principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
+                schema: "blazor_ecommerce",
                 table: "categories",
                 columns: new[] { "id", "deleted", "name", "url", "visible" },
                 values: new object[,]
@@ -207,6 +226,7 @@ namespace BlazorEcommerce.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "blazor_ecommerce",
                 table: "product_types",
                 columns: new[] { "id", "name" },
                 values: new object[,]
@@ -224,6 +244,7 @@ namespace BlazorEcommerce.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "blazor_ecommerce",
                 table: "products",
                 columns: new[] { "id", "category_id", "deleted", "description", "featured", "image_url", "title", "visible" },
                 values: new object[,]
@@ -242,6 +263,7 @@ namespace BlazorEcommerce.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "blazor_ecommerce",
                 table: "product_variants",
                 columns: new[] { "product_id", "product_type_id", "deleted", "original_price", "price", "visible" },
                 values: new object[,]
@@ -267,27 +289,32 @@ namespace BlazorEcommerce.Server.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_addresses_user_id",
+                schema: "blazor_ecommerce",
                 table: "addresses",
                 column: "user_id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_order_items_product_id",
+                schema: "blazor_ecommerce",
                 table: "order_items",
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_order_items_product_type_id",
+                schema: "blazor_ecommerce",
                 table: "order_items",
                 column: "product_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_variants_product_type_id",
+                schema: "blazor_ecommerce",
                 table: "product_variants",
                 column: "product_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_products_category_id",
+                schema: "blazor_ecommerce",
                 table: "products",
                 column: "category_id");
         }
@@ -295,31 +322,40 @@ namespace BlazorEcommerce.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "addresses");
+                name: "addresses",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "cart_items");
+                name: "cart_items",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "order_items");
+                name: "order_items",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "product_variants");
+                name: "product_variants",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "users",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "orders");
+                name: "orders",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "product_types");
+                name: "product_types",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "products",
+                schema: "blazor_ecommerce");
 
             migrationBuilder.DropTable(
-                name: "categories");
+                name: "categories",
+                schema: "blazor_ecommerce");
         }
     }
 }

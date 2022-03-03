@@ -19,6 +19,7 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("blazor_ecommerce");
         modelBuilder.Entity<CartItem>()
             .HasKey(ci => new { ci.UserId, ci.ProductId, ci.ProductTypeId });
         
